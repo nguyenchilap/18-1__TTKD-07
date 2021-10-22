@@ -1,0 +1,764 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/22/2021 11:09:38 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-3P1GGFV"
+  DTS:CreatorName="DESKTOP-3P1GGFV\ndl"
+  DTS:DTSID="{980AF2E8-8839-4D73-9941-12F2AE0CAABA}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{0565E0E0-3029-46E3-87B8-9759C1DC4B3B}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel Connection Manager]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{CD4E1181-EE58-4066-AFAB-03AB753143B2}"
+      DTS:ObjectName="Excel Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="0"
+          DTS:ConnectRetryInterval="0"
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=E:\2021\HK7\BI\DATH_1\lan2\Casualties1114.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.AccidentDW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{B715AA1E-68C3-424F-B497-718AAAA8DF67}"
+      DTS:ObjectName="LocalHost.AccidentDW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=AccidentDW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Source_Stage"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{EAEC4482-9241-4F11-8627-E5730A691486}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Source_Stage"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Source_Stage\AccidentDW SQL"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="AccidentDW SQL"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Casualties]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Source_Stage\AccidentDW SQL.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.AccidentDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.AccidentDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].Columns[Accident_Index]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Accident_Index"
+                      externalMetadataColumnId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Accident_Index]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Accident_Index]" />
+                    <inputColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].Columns[Vehicle_Reference]"
+                      cachedDataType="r8"
+                      cachedName="Vehicle_Reference"
+                      externalMetadataColumnId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Vehicle_Reference]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Vehicle_Reference]" />
+                    <inputColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].Columns[Casualty_Reference]"
+                      cachedDataType="r8"
+                      cachedName="Casualty_Reference"
+                      externalMetadataColumnId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Casualty_Reference]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Casualty_Reference]" />
+                    <inputColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].Columns[Casualty_Class]"
+                      cachedDataType="r8"
+                      cachedName="Casualty_Class"
+                      externalMetadataColumnId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Casualty_Class]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Casualty_Class]" />
+                    <inputColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].Columns[Sex_of_Casualty]"
+                      cachedDataType="r8"
+                      cachedName="Sex_of_Casualty"
+                      externalMetadataColumnId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Sex_of_Casualty]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Sex_of_Casualty]" />
+                    <inputColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].Columns[Age_of_Casualty]"
+                      cachedDataType="r8"
+                      cachedName="Age_of_Casualty"
+                      externalMetadataColumnId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Age_of_Casualty]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Age_of_Casualty]" />
+                    <inputColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].Columns[Age_Band_of_Casualty]"
+                      cachedDataType="r8"
+                      cachedName="Age_Band_of_Casualty"
+                      externalMetadataColumnId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Age_Band_of_Casualty]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Age_Band_of_Casualty]" />
+                    <inputColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].Columns[Casualty_Severity]"
+                      cachedDataType="r8"
+                      cachedName="Casualty_Severity"
+                      externalMetadataColumnId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Casualty_Severity]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Casualty_Severity]" />
+                    <inputColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].Columns[Pedestrian_Location]"
+                      cachedDataType="r8"
+                      cachedName="Pedestrian_Location"
+                      externalMetadataColumnId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Pedestrian_Location]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Pedestrian_Location]" />
+                    <inputColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].Columns[Pedestrian_Movement]"
+                      cachedDataType="r8"
+                      cachedName="Pedestrian_Movement"
+                      externalMetadataColumnId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Pedestrian_Movement]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Pedestrian_Movement]" />
+                    <inputColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].Columns[Car_Passenger]"
+                      cachedDataType="r8"
+                      cachedName="Car_Passenger"
+                      externalMetadataColumnId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Car_Passenger]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Car_Passenger]" />
+                    <inputColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].Columns[Bus_or_Coach_Passenger]"
+                      cachedDataType="r8"
+                      cachedName="Bus_or_Coach_Passenger"
+                      externalMetadataColumnId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Bus_or_Coach_Passenger]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Bus_or_Coach_Passenger]" />
+                    <inputColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].Columns[Pedestrian_Road_Maintenance_Worker]"
+                      cachedDataType="r8"
+                      cachedName="Pedestrian_Road_Maintenance_Worker"
+                      externalMetadataColumnId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Pedestrian_Road_Maintenance_Worker]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Pedestrian_Road_Maintenance_Worker]" />
+                    <inputColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].Columns[Casualty_Type]"
+                      cachedDataType="r8"
+                      cachedName="Casualty_Type"
+                      externalMetadataColumnId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Casualty_Type]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Casualty_Type]" />
+                    <inputColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].Columns[Casualty_Home_Area_Type]"
+                      cachedDataType="r8"
+                      cachedName="Casualty_Home_Area_Type"
+                      externalMetadataColumnId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Casualty_Home_Area_Type]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Casualty_Home_Area_Type]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Accident_Index]"
+                      dataType="wstr"
+                      length="255"
+                      name="Accident_Index" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Vehicle_Reference]"
+                      dataType="r8"
+                      name="Vehicle_Reference" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Casualty_Reference]"
+                      dataType="r8"
+                      name="Casualty_Reference" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Casualty_Class]"
+                      dataType="r8"
+                      name="Casualty_Class" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Sex_of_Casualty]"
+                      dataType="r8"
+                      name="Sex_of_Casualty" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Age_of_Casualty]"
+                      dataType="r8"
+                      name="Age_of_Casualty" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Age_Band_of_Casualty]"
+                      dataType="r8"
+                      name="Age_Band_of_Casualty" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Casualty_Severity]"
+                      dataType="r8"
+                      name="Casualty_Severity" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Pedestrian_Location]"
+                      dataType="r8"
+                      name="Pedestrian_Location" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Pedestrian_Movement]"
+                      dataType="r8"
+                      name="Pedestrian_Movement" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Car_Passenger]"
+                      dataType="r8"
+                      name="Car_Passenger" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Bus_or_Coach_Passenger]"
+                      dataType="r8"
+                      name="Bus_or_Coach_Passenger" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Pedestrian_Road_Maintenance_Worker]"
+                      dataType="r8"
+                      name="Pedestrian_Road_Maintenance_Worker" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Casualty_Type]"
+                      dataType="r8"
+                      name="Casualty_Type" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input].ExternalColumns[Casualty_Home_Area_Type]"
+                      dataType="r8"
+                      name="Casualty_Home_Area_Type" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Source_Stage\AccidentDW SQL.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Source_Stage\AccidentDW SQL.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Source_Stage\AccidentDW SQL.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Source_Stage\AccidentDW SQL.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Source_Stage\Casualties Source"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel Source"
+              name="Casualties Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">Trang_tính1$</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mapping from parameters in the SQL command to variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Source_Stage\Casualties Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output]"
+                  name="Excel Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Accident_Index]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Accident_Index]"
+                      length="255"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Accident_Index]"
+                      name="Accident_Index"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Vehicle_Reference]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Vehicle_Reference]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Vehicle_Reference]"
+                      name="Vehicle_Reference"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Casualty_Reference]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Casualty_Reference]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Casualty_Reference]"
+                      name="Casualty_Reference"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Casualty_Class]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Casualty_Class]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Casualty_Class]"
+                      name="Casualty_Class"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Sex_of_Casualty]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Sex_of_Casualty]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Sex_of_Casualty]"
+                      name="Sex_of_Casualty"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Age_of_Casualty]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Age_of_Casualty]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Age_of_Casualty]"
+                      name="Age_of_Casualty"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Age_Band_of_Casualty]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Age_Band_of_Casualty]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Age_Band_of_Casualty]"
+                      name="Age_Band_of_Casualty"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Casualty_Severity]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Casualty_Severity]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Casualty_Severity]"
+                      name="Casualty_Severity"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Pedestrian_Location]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Pedestrian_Location]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Pedestrian_Location]"
+                      name="Pedestrian_Location"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Pedestrian_Movement]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Pedestrian_Movement]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Pedestrian_Movement]"
+                      name="Pedestrian_Movement"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Car_Passenger]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Car_Passenger]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Car_Passenger]"
+                      name="Car_Passenger"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Bus_or_Coach_Passenger]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Bus_or_Coach_Passenger]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Bus_or_Coach_Passenger]"
+                      name="Bus_or_Coach_Passenger"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Pedestrian_Road_Maintenance_Worker]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Pedestrian_Road_Maintenance_Worker]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Pedestrian_Road_Maintenance_Worker]"
+                      name="Pedestrian_Road_Maintenance_Worker"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Casualty_Type]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Casualty_Type]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Casualty_Type]"
+                      name="Casualty_Type"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Casualty_Home_Area_Type]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Casualty_Home_Area_Type]"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].Columns[Casualty_Home_Area_Type]"
+                      name="Casualty_Home_Area_Type"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Accident_Index]"
+                      dataType="wstr"
+                      length="255"
+                      name="Accident_Index" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Vehicle_Reference]"
+                      dataType="r8"
+                      name="Vehicle_Reference" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Casualty_Reference]"
+                      dataType="r8"
+                      name="Casualty_Reference" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Casualty_Class]"
+                      dataType="r8"
+                      name="Casualty_Class" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Sex_of_Casualty]"
+                      dataType="r8"
+                      name="Sex_of_Casualty" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Age_of_Casualty]"
+                      dataType="r8"
+                      name="Age_of_Casualty" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Age_Band_of_Casualty]"
+                      dataType="r8"
+                      name="Age_Band_of_Casualty" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Casualty_Severity]"
+                      dataType="r8"
+                      name="Casualty_Severity" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Pedestrian_Location]"
+                      dataType="r8"
+                      name="Pedestrian_Location" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Pedestrian_Movement]"
+                      dataType="r8"
+                      name="Pedestrian_Movement" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Car_Passenger]"
+                      dataType="r8"
+                      name="Car_Passenger" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Bus_or_Coach_Passenger]"
+                      dataType="r8"
+                      name="Bus_or_Coach_Passenger" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Pedestrian_Road_Maintenance_Worker]"
+                      dataType="r8"
+                      name="Pedestrian_Road_Maintenance_Worker" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Casualty_Type]"
+                      dataType="r8"
+                      name="Casualty_Type" />
+                    <externalMetadataColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output].ExternalColumns[Casualty_Home_Area_Type]"
+                      dataType="r8"
+                      name="Casualty_Home_Area_Type" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output]"
+                  isErrorOut="true"
+                  name="Excel Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Accident_Index]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Accident_Index]"
+                      name="Accident_Index" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Vehicle_Reference]"
+                      dataType="r8"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Vehicle_Reference]"
+                      name="Vehicle_Reference" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Casualty_Reference]"
+                      dataType="r8"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Casualty_Reference]"
+                      name="Casualty_Reference" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Casualty_Class]"
+                      dataType="r8"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Casualty_Class]"
+                      name="Casualty_Class" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Sex_of_Casualty]"
+                      dataType="r8"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Sex_of_Casualty]"
+                      name="Sex_of_Casualty" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Age_of_Casualty]"
+                      dataType="r8"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Age_of_Casualty]"
+                      name="Age_of_Casualty" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Age_Band_of_Casualty]"
+                      dataType="r8"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Age_Band_of_Casualty]"
+                      name="Age_Band_of_Casualty" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Casualty_Severity]"
+                      dataType="r8"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Casualty_Severity]"
+                      name="Casualty_Severity" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Pedestrian_Location]"
+                      dataType="r8"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Pedestrian_Location]"
+                      name="Pedestrian_Location" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Pedestrian_Movement]"
+                      dataType="r8"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Pedestrian_Movement]"
+                      name="Pedestrian_Movement" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Car_Passenger]"
+                      dataType="r8"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Car_Passenger]"
+                      name="Car_Passenger" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Bus_or_Coach_Passenger]"
+                      dataType="r8"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Bus_or_Coach_Passenger]"
+                      name="Bus_or_Coach_Passenger" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Pedestrian_Road_Maintenance_Worker]"
+                      dataType="r8"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Pedestrian_Road_Maintenance_Worker]"
+                      name="Pedestrian_Road_Maintenance_Worker" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Casualty_Type]"
+                      dataType="r8"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Casualty_Type]"
+                      name="Casualty_Type" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Casualty_Home_Area_Type]"
+                      dataType="r8"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[Casualty_Home_Area_Type]"
+                      name="Casualty_Home_Area_Type" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Source_Stage.Paths[Excel Source Output]"
+              endId="Package\Source_Stage\AccidentDW SQL.Inputs[OLE DB Destination Input]"
+              name="Excel Source Output"
+              startId="Package\Source_Stage\Casualties Source.Outputs[Excel Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="144,42"
+          Id="Package\Source_Stage"
+          TopLeft="266,79" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Source_Stage">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="162,42"
+          Id="Package\Source_Stage\Casualties Source"
+          TopLeft="230,82" />
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Source_Stage\AccidentDW SQL"
+          TopLeft="227,214" />
+        <EdgeLayout
+          Id="Package\Source_Stage.Paths[Excel Source Output]"
+          TopLeft="308.5,124">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,90"
+              Start="0,0"
+              End="0,82.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,82.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Source_Stage\Casualties Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Source_Stage\AccidentDW SQL">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
